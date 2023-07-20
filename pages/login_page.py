@@ -1,4 +1,4 @@
-from .base_page import BasePage
+from pages.base_page import BasePage
 from locators.login_page_loc import LoginPageLocators
 
 LINK_TO_PAGE = "http://selenium1py.pythonanywhere.com/ru/accounts/login/"
