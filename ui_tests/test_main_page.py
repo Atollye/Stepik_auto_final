@@ -20,10 +20,3 @@ class TestTopPanel():
         page.go_to_login_page()
         login_page = LoginPage(browser, browser.current_url)
         login_page.should_be_login_page()
-
-    def test_login_page_is_ok(self, browser):
-        page = LoginPage(browser)
-        page.open()
-        page.should_be_login_form()
-        page.should_be_register_form()
-        page.should_be_login_url

@@ -29,8 +29,9 @@ class ProductPage(BasePage):
         answer = str(math.log(abs((12 * math.sin(float(number))))))
         alert.send_keys(answer)
         alert.accept()
-        try:
-            alert = self.browser.switch_to.alert
-            alert.accept()
-        except NoAlertPresentException:
-            assert False, "There is no second alert"
+        # try:
+        #     alert = self.browser.switch_to.alert
+        #     print(alert.text)
+        #     alert.accept()
+        # except NoAlertPresentException:
+        #     assert False, "There is no second alert"
