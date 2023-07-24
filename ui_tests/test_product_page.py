@@ -8,6 +8,7 @@ PRODUCT_PAGE_URL = (
     'handbook_209/?promo=newYear'
 )
 
+
 class TestProductMainInfo():
 
     def test_guest_can_add_product_to_basket(self, browser):
@@ -16,7 +17,7 @@ class TestProductMainInfo():
         product_name = page.should_be_product_name()
         product_price = page.should_be_product_price()
         page.add_to_basket()
-        time.sleep(3)
-
-
-
+        page.handle_allert()
+        basket_page = BasketPage(browser, browser.current_url)
+        basket_page.check_product_name_in_notification(product_name)
+        basket_page.check_total_basket_price_in_notification(product_price)

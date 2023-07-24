@@ -5,6 +5,7 @@ from pages.login_page import LoginPage
 
 MAIN_PAGE_URL = "http://selenium1py.pythonanywhere.com"
 
+
 class TestTopPanel():
 
     def test_guest_can_see_login_link(self, browser):
@@ -26,5 +27,3 @@ class TestTopPanel():
         page.should_be_login_form()
         page.should_be_register_form()
         page.should_be_login_url
-
-
