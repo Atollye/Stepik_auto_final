@@ -28,3 +28,16 @@ class BasketPage(BasePage):
         assert product_price in price_in_notification.text, (
             "No product price in notification"
         )
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(
+            *BasketPageLocators.SUCCESS_NOTIFICATION
+        ), "There is a excessive success message"
+
+    def success_message_should_disapear(self):
+        notification = BasketPageLocators.SUCCESS_NOTIFICATION
+        assert self.is_element_present(*notification), (
+             "No success notification after adding item to basket"
+        )
+        assert self.is_disappear(*notification), (
+            "Success message doesn't disappear"
+        )

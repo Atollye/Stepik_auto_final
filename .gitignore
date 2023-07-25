@@ -5,3 +5,4 @@ __pycache__/
 *chache
 .vscode/
 _todo/*
+my_venv/*

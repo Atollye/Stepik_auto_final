@@ -35,3 +35,8 @@ class ProductPage(BasePage):
         #     alert.accept()
         # except NoAlertPresentException:
         #     assert False, "There is no second alert"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(
+            *PoductPageLocators.SUCCESS_NOTIFICATION
+        ), "There is a excessive success message"
