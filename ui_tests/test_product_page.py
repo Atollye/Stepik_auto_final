@@ -3,7 +3,7 @@ import time
 import pytest
 
 from pages.product_page import ProductPage
-from pages.login_page import LoginPage
+from pages.login_page import LoginPage, LOGIN_PAGE_URL
 from pages.basket_page import BasketPage
 
 
@@ -12,7 +12,7 @@ SAMPLE_PRODUCT_URL = (
     "http://selenium1py.pythonanywhere.com/catalogue/reversing_202/"
 )
 
-class TestProductPageHeader():
+class TestGuestProductPageHeader():
 
     def test_guest_should_see_login_link_on_product_page(self, browser):
         page = ProductPage(browser, SAMPLE_PRODUCT_URL)
@@ -39,6 +39,34 @@ class TestProductPageHeader():
         basket_page.should_be_basket_emty_text()
 
 
+class TestUserCanAddToBasketFromProductPage():
+
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        page = LoginPage(browser, LOGIN_PAGE_URL)
+        page.open()
+        page.login_as_user()
+        # user_should_be_authorized()
+
+    def test_debug(self):
+        print("I am debug test")
+
+    def test_user_can_add_item_to_basket(self, browser):
+        page = ProductPage(browser, SAMPLE_PRODUCT_URL)
+        page.open()
+        product_name = page.should_be_product_name()
+        product_price = page.should_be_product_price()
+        page.add_to_basket()
+        basket_page = BasketPage(browser, browser.current_url)
+        basket_page.check_product_name_in_notification(product_name)
+        basket_page.check_total_basket_price_in_notification(product_price)
+
+    def test_user_cant_see_success_message(self, browser):
+        page = ProductPage(browser, SAMPLE_PRODUCT_URL)
+        page.open()
+        page.should_not_be_success_message()
+
+
 class TestSpecialOffers():
 
     @pytest.mark.parametrize("offer", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -60,17 +88,17 @@ class TestSpecialOffers():
 
 class TestNoSuccessMessages():
     @pytest.mark.xfail
-    def test_guest_cant_see_success_message_after_adding_product_to_basket(
+    def test_guest_can_not_see_success_message_after_adding_product_to_basket(
         self, browser
     ):
-        page = ProductPage(browser, sample_product_url)
+        page = ProductPage(browser, SAMPLE_PRODUCT_URL)
         page.open()
         page.add_to_basket()
         basket_page = BasketPage(browser, browser.current_url)
         basket_page.should_not_be_success_message()
 
-    def test_guest_can_not_see_success_message(self, browser):
-        page = ProductPage(browser, sample_product_url)
+    def test_guest_cant_see_success_message(self, browser):
+        page = ProductPage(browser, SAMPLE_PRODUCT_URL)
         page.open()
         page.should_not_be_success_message()
 

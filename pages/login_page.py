@@ -2,7 +2,7 @@
 from pages.base_page import BasePage
 from locators.locators import LoginPageLocators
 
-LINK_TO_PAGE = "http://selenium1py.pythonanywhere.com/ru/accounts/login/"
+LOGIN_PAGE_URL = "http://selenium1py.pythonanywhere.com/accounts/login/"
 
 
 class LoginPage(BasePage):
@@ -26,3 +26,14 @@ class LoginPage(BasePage):
         assert self.is_element_present(*LoginPageLocators.REGISTER_FORM), (
             "No register form on login page"
         )
+
+    def login_as_user(self):
+        email_field = self.is_element_present(*LoginPageLocators.LOGIN_EMAIL_FIELD)
+        assert email_field, "No email field on login page"
+        email_field.send_keys("user@user.com")
+        password_field = self.is_element_present(*LoginPageLocators.LOGIN_PASSWORD_FIELD)
+        assert password_field, "No password field on login page"
+        password_field.send_keys("testpassword")
+        login_button = self.is_element_present(*LoginPageLocators.LOGIN_BUTTON)
+        assert login_button, "No login_button on login page"
+        login_button.click()

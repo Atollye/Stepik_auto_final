@@ -24,17 +24,14 @@ class ProductPage(BasePage):
         button.click()
 
     def handle_allert(self):
-        alert = self.browser.switch_to.alert
+        try:
+            alert = self.browser.switch_to.alert
+        except NoAlertPresentException:
+            assert False, "There is no alert"
         number = alert.text.split(" ")[2]
         answer = str(math.log(abs((12 * math.sin(float(number))))))
         alert.send_keys(answer)
         alert.accept()
-        # try:
-        #     alert = self.browser.switch_to.alert
-        #     print(alert.text)
-        #     alert.accept()
-        # except NoAlertPresentException:
-        #     assert False, "There is no second alert"
 
     def should_not_be_success_message(self):
         assert self.is_not_element_present(

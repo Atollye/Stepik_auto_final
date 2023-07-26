@@ -12,6 +12,9 @@ class MainPageLocators():
 
 class LoginPageLocators():
     LOGIN_FORM = (By.ID, "login_form")
+    LOGIN_EMAIL_FIELD = (By.NAME, "login-username")
+    LOGIN_PASSWORD_FIELD = (By.NAME, "login-password")
+    LOGIN_BUTTON = (By.NAME, "login-password")
     REGISTER_FORM = (By.ID, "register_form")
 
 
