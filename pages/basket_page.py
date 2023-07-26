@@ -1,7 +1,7 @@
 import time
 
 from pages.base_page import BasePage
-from locators.basket_page_loc import BasketPageLocators
+from locators.locators import BasketPageLocators
 
 
 class BasketPage(BasePage):
@@ -41,3 +41,20 @@ class BasketPage(BasePage):
         assert self.is_disappear(*notification), (
             "Success message doesn't disappear"
         )
+
+    def should_be_no_items_in_basket(self):
+        assert self.is_not_element_present(*BasketPageLocators.BASKET_ITEM
+        ), "Basket is not empty as was expected"
+
+    def should_be_items_in_basket(self):
+        assert self.is_element_present(*BasketPageLocators.BASKET_ITEM
+        )
+
+    def should_be_basket_emty_text(self):
+        page_text = self.is_element_present(
+            *BasketPageLocators.BASKET_EMPTY_TEXT
+        )
+        assert "Your basket is empty" in page_text.text, (
+            "Wrong text on page when basket is empty"
+        )
+           

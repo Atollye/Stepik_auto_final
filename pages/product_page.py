@@ -3,7 +3,7 @@ import time
 
 from pages.base_page import BasePage
 from selenium.common.exceptions import NoAlertPresentException
-from locators.product_page_loc import PoductPageLocators
+from locators.locators import PoductPageLocators
 
 
 class ProductPage(BasePage):
