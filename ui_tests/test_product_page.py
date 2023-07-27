@@ -11,6 +11,8 @@ from pages.basket_page import BasketPage
 SAMPLE_PRODUCT_URL = (
     "http://selenium1py.pythonanywhere.com/catalogue/reversing_202/"
 )
+BASKET_URL = "http://selenium1py.pythonanywhere.com/basket/"
+
 
 class TestGuestProductPageHeader():
 
@@ -46,10 +48,10 @@ class TestUserCanAddToBasketFromProductPage():
         page = LoginPage(browser, LOGIN_PAGE_URL)
         page.open()
         page.login_as_user()
-        # user_should_be_authorized()
-
-    def test_debug(self):
-        print("I am debug test")
+        page.should_be_authorized_user()
+        yield
+        page = BasketPage(browser, BASKET_URL)
+        page.clear_basket()
 
     def test_user_can_add_item_to_basket(self, browser):
         page = ProductPage(browser, SAMPLE_PRODUCT_URL)
@@ -58,8 +60,8 @@ class TestUserCanAddToBasketFromProductPage():
         product_price = page.should_be_product_price()
         page.add_to_basket()
         basket_page = BasketPage(browser, browser.current_url)
-        basket_page.check_product_name_in_notification(product_name)
-        basket_page.check_total_basket_price_in_notification(product_price)
+        basket_page.compare_product_name_in_notification(product_name)
+        basket_page.compare_basket_price_in_notification(product_price)
 
     def test_user_cant_see_success_message(self, browser):
         page = ProductPage(browser, SAMPLE_PRODUCT_URL)
@@ -82,8 +84,8 @@ class TestSpecialOffers():
         page.add_to_basket()
         page.handle_allert()
         basket_page = BasketPage(browser, browser.current_url)
-        basket_page.check_product_name_in_notification(product_name)
-        basket_page.check_total_basket_price_in_notification(product_price)
+        basket_page.compare_product_name_in_notification(product_name)
+        basket_page.compare_basket_price_in_notification(product_price)
 
 
 class TestNoSuccessMessages():

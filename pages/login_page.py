@@ -28,12 +28,18 @@ class LoginPage(BasePage):
         )
 
     def login_as_user(self):
-        email_field = self.is_element_present(*LoginPageLocators.LOGIN_EMAIL_FIELD)
+        email_field = self.is_element_present(
+            *LoginPageLocators.LOGIN_EMAIL_FIELD
+        )
         assert email_field, "No email field on login page"
         email_field.send_keys("user@user.com")
-        password_field = self.is_element_present(*LoginPageLocators.LOGIN_PASSWORD_FIELD)
+
+        password_field = self.is_element_present(
+            *LoginPageLocators.LOGIN_PASSWORD_FIELD
+        )
         assert password_field, "No password field on login page"
         password_field.send_keys("testpassword")
+
         login_button = self.is_element_present(*LoginPageLocators.LOGIN_BUTTON)
         assert login_button, "No login_button on login page"
         login_button.click()

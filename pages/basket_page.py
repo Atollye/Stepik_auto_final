@@ -4,9 +4,26 @@ from pages.base_page import BasePage
 from locators.locators import BasketPageLocators
 
 
+
 class BasketPage(BasePage):
 
-    def check_product_name_in_notification(self, product_name):
+    def clear_basket(self):
+        self.open()
+        while True:
+            items = self.browser.find_elements(*BasketPageLocators.BASKET_ITEM)
+            if not items:
+                break
+            number = items[0].find_element(*BasketPageLocators.BASKET_ITEM_QUANTITY)
+            number.clear()
+            number.send_keys("0")
+            update_btn = items[0].find_element(
+                *BasketPageLocators.BASKET_ITEM_UPDATE_BUTTON
+            )
+            update_btn.click()
+        self.should_be_basket_emty_text()
+
+
+    def compare_product_name_in_notification(self, product_name):
         success_notification = self.is_element_present(
             *BasketPageLocators.SUCCESS_NOTIFICATION
         )
@@ -18,7 +35,7 @@ class BasketPage(BasePage):
             "No product name in success notification"
         )
 
-    def check_total_basket_price_in_notification(self, product_price):
+    def compare_basket_price_in_notification(self, product_price):
         price_in_notification = self.is_element_present(
             *BasketPageLocators.BASKET_PRICE_NOTIFICATION
         )
@@ -26,8 +43,9 @@ class BasketPage(BasePage):
             "No price notification after adding item to basket"
         )
         assert product_price in price_in_notification.text, (
-            "No product price in notification"
+            "Incorrect price in notification"
         )
+    
     def should_not_be_success_message(self):
         assert self.is_not_element_present(
             *BasketPageLocators.SUCCESS_NOTIFICATION
