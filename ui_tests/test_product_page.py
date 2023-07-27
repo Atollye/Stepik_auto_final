@@ -1,17 +1,13 @@
-import time
-
 import pytest
 
 from pages.product_page import ProductPage
 from pages.login_page import LoginPage, LOGIN_PAGE_URL
-from pages.basket_page import BasketPage
-
+from pages.basket_page import BasketPage, BASKET_PAGE_URL
 
 
 SAMPLE_PRODUCT_URL = (
     "http://selenium1py.pythonanywhere.com/catalogue/reversing_202/"
 )
-BASKET_PAGE_URL = "http://selenium1py.pythonanywhere.com/basket/"
 
 
 class TestGuestProductPageHeader():
@@ -20,7 +16,7 @@ class TestGuestProductPageHeader():
         page = ProductPage(browser, SAMPLE_PRODUCT_URL)
         page.open()
         page.should_be_login_link()
-    
+
     def test_guest_can_go_to_login_page_from_product_page(self, browser):
         page = ProductPage(browser, SAMPLE_PRODUCT_URL)
         page.open()
@@ -31,7 +27,7 @@ class TestGuestProductPageHeader():
 
     def test_guest_cant_see_product_in_basket_opened_from_product_page(
         self, browser
-        ):
+    ):
         page = ProductPage(browser, SAMPLE_PRODUCT_URL)
         page.open()
         page.should_be_link_to_basket()
@@ -50,7 +46,7 @@ class TestUserCanAddToBasketFromProductPage():
         page.login_as_user()
         page.should_be_authorized_user()
         yield
-        page = BasketPage(browser, BASKET_URL)
+        page = BasketPage(browser, BASKET_PAGE_URL)
         page.clear_basket()
 
     def test_user_can_add_item_to_basket(self, browser):
@@ -106,7 +102,7 @@ class TestNoSuccessMessages():
 
     @pytest.mark.xfail
     def test_message_disappeared_after_adding_product_to_basket(self, browser):
-        page = ProductPage(browser, sample_product_url)
+        page = ProductPage(browser, SAMPLE_PRODUCT_URL)
         page.open()
         page.add_to_basket()
         basket_page = BasketPage(browser, browser.current_url)

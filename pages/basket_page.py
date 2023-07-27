@@ -1,9 +1,8 @@
-import time
-
 from pages.base_page import BasePage
 from locators.locators import BasketPageLocators
 
 BASKET_PAGE_URL = "http://selenium1py.pythonanywhere.com/basket/"
+
 
 class BasketPage(BasePage):
 
@@ -13,7 +12,9 @@ class BasketPage(BasePage):
             items = self.browser.find_elements(*BasketPageLocators.BASKET_ITEM)
             if not items:
                 break
-            number = items[0].find_element(*BasketPageLocators.BASKET_ITEM_QUANTITY)
+            number = items[0].find_element(
+                *BasketPageLocators.BASKET_ITEM_QUANTITY
+            )
             number.clear()
             number.send_keys("0")
             update_btn = items[0].find_element(
@@ -21,7 +22,6 @@ class BasketPage(BasePage):
             )
             update_btn.click()
         self.should_be_basket_emty_text()
-
 
     def compare_product_name_in_notification(self, product_name):
         success_notification = self.is_element_present(
@@ -45,7 +45,7 @@ class BasketPage(BasePage):
         assert product_price in price_in_notification.text, (
             "Incorrect price in notification"
         )
-    
+
     def should_not_be_success_message(self):
         assert self.is_not_element_present(
             *BasketPageLocators.SUCCESS_NOTIFICATION
@@ -61,12 +61,12 @@ class BasketPage(BasePage):
         )
 
     def should_be_no_items_in_basket(self):
-        assert self.is_not_element_present(*BasketPageLocators.BASKET_ITEM
-        ), "Basket is not empty as was expected"
+        assert self.is_not_element_present(*BasketPageLocators.BASKET_ITEM), (
+            "Basket is not empty as was expected"
+        )
 
     def should_be_items_in_basket(self):
-        assert self.is_element_present(*BasketPageLocators.BASKET_ITEM
-        )
+        assert self.is_element_present(*BasketPageLocators.BASKET_ITEM)
 
     def should_be_basket_emty_text(self):
         page_text = self.is_element_present(
@@ -75,4 +75,3 @@ class BasketPage(BasePage):
         assert "Your basket is empty" in page_text.text, (
             "Wrong text on page when basket is empty"
         )
-           

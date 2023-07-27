@@ -1,20 +1,24 @@
 import math
-import time
+
+from selenium.common.exceptions import NoAlertPresentException
 
 from pages.base_page import BasePage
-from selenium.common.exceptions import NoAlertPresentException
 from locators.locators import PoductPageLocators
 
 
 class ProductPage(BasePage):
 
     def should_be_product_name(self):
-        product_title = self.is_element_present(*PoductPageLocators.PRODUCT_TITLE)
+        product_title = self.is_element_present(
+            *PoductPageLocators.PRODUCT_TITLE
+        )
         assert product_title, "Product title is missing"
         return product_title.text
 
     def should_be_product_price(self):
-        product_price = self.is_element_present(*PoductPageLocators.PRODUCT_PRICE)
+        product_price = self.is_element_present(
+            *PoductPageLocators.PRODUCT_PRICE
+        )
         assert product_price, "Product price is missing"
         return product_price.text
 

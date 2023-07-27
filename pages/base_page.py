@@ -4,6 +4,7 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 from locators.locators import BasePageLocators
 
+
 class BasePage():
 
     def __init__(self, browser, url):
@@ -40,18 +41,17 @@ class BasePage():
 
     def is_disappear(self, how, what, timeout=4):
         try:
-            WebDriverWait(self.browser, timeout, 1, TimeoutException).until_not(
-                EC.presence_of_element_located((how, what))
-            )
+            WebDriverWait(
+                self.browser, timeout, 1, TimeoutException
+            ).until_not(EC.presence_of_element_located((how, what)))
         except TimeoutException:
             return False
         return True
 
     def should_be_authorized_user(self):
-        assert self.is_element_present(*BasePageLocators.AUTHORIZED_USER_ICON),(
-            "User is not authorized"
-        )
-
+        assert self.is_element_present(
+            *BasePageLocators.AUTHORIZED_USER_ICON
+        ), "User is not authorized"
 
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), (
@@ -62,4 +62,3 @@ class BasePage():
         assert self.is_element_present(*BasePageLocators.BASKET_LINK), (
             "Basket page link is missing"
         )
-
