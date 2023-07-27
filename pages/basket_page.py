@@ -3,7 +3,7 @@ import time
 from pages.base_page import BasePage
 from locators.locators import BasketPageLocators
 
-
+BASKET_PAGE_URL = "http://selenium1py.pythonanywhere.com/basket/"
 
 class BasketPage(BasePage):
 

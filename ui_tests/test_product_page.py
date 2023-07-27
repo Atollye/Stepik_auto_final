@@ -11,7 +11,7 @@ from pages.basket_page import BasketPage
 SAMPLE_PRODUCT_URL = (
     "http://selenium1py.pythonanywhere.com/catalogue/reversing_202/"
 )
-BASKET_URL = "http://selenium1py.pythonanywhere.com/basket/"
+BASKET_PAGE_URL = "http://selenium1py.pythonanywhere.com/basket/"
 
 
 class TestGuestProductPageHeader():
@@ -79,13 +79,13 @@ class TestSpecialOffers():
         )
         page = ProductPage(browser, link)
         page.open()
-        product_name = page.should_be_product_name()
-        product_price = page.should_be_product_price()
+        expected_name = page.should_be_product_name()
+        expected_price = page.should_be_product_price()
         page.add_to_basket()
         page.handle_allert()
         basket_page = BasketPage(browser, browser.current_url)
-        basket_page.compare_product_name_in_notification(product_name)
-        basket_page.compare_basket_price_in_notification(product_price)
+        basket_page.compare_product_name_in_notification(expected_name)
+        basket_page.compare_basket_price_in_notification(expected_price)
 
 
 class TestNoSuccessMessages():
