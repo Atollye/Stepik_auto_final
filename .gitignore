@@ -6,3 +6,4 @@ __pycache__/
 .vscode/
 _todo/*
 my_venv/*
+my_test_venv/*
