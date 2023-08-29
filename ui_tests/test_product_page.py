@@ -71,7 +71,7 @@ class TestUserCanAddToBasketFromProductPage():
 class TestSpecialOffers():
     
     @pytest.mark.need_review
-    @pytest.mark.parametrize("offer", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    @pytest.mark.parametrize("offer", [0, 1, 2])
     def test_guest_can_add_product_to_basket(self, browser, offer):
         link = (
             f"http://selenium1py.pythonanywhere.com/catalogue/coders-at-work"

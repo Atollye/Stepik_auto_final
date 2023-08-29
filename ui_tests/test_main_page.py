@@ -1,9 +1,12 @@
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 from pages.basket_page import BasketPage
+import time
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 
 
-MAIN_PAGE_URL = "http://selenium1py.pythonanywhere.com"
+MAIN_PAGE_URL = 'http://selenium1py.pythonanywhere.com'
 
 
 class TestTopPanel():
@@ -31,3 +34,9 @@ class TestTopPanel():
         page.go_to_login_page()
         login_page = LoginPage(browser, browser.current_url)
         login_page.should_be_login_page()
+
+    def test_can_switch_to_german(self, browser):
+        page = MainPage(browser, MAIN_PAGE_URL)
+        page.open()
+        page.choose_german_in_dropdown_and_activate()
+        page.check_if_german_translation_is_ok()

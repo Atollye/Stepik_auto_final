@@ -1,8 +1,10 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.webdriver.support.ui import Select
 
 from locators.locators import BasePageLocators
+
 
 
 class BasePage():
@@ -62,3 +64,13 @@ class BasePage():
         assert self.is_element_present(*BasePageLocators.BASKET_LINK), (
             "Basket page link is missing"
         )
+
+    def choose_german_in_dropdown_and_activate(self):   
+        sel = Select(self.browser.find_element(*BasePageLocators.LANGUAGE_SELECTOR))
+        sel.select_by_value('de')
+        btn = self.browser.find_element(*BasePageLocators.LANGUAGE_BUTTON)
+        btn.click()
+
+    def check_if_german_translation_is_ok(self):
+        for el in ['Summe', 'Alle Produkte', 'Im Webshop stöbern']:
+            assert el in self.browser.page_source

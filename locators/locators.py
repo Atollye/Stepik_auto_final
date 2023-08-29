@@ -6,6 +6,9 @@ class BasePageLocators():
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_invalid")
     AUTHORIZED_USER_ICON = (By.CLASS_NAME, "icon-user")
     BASKET_LINK = (By.CSS_SELECTOR, ".btn-group > a")
+    LANGUAGE_SELECTOR = (By.NAME, "language")
+    LANGUAGE_BUTTON = (By.CSS_SELECTOR, '#language_selector [type = "submit"]')
+
 
 
 class LoginPageLocators():
